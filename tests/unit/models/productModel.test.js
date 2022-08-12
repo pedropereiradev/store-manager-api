@@ -117,4 +117,28 @@ describe('Product Model Tests', () => {
       });
     })
   })
+
+  describe('Create a new Product', () => {
+    afterEach(() => {
+      Sinon.restore();
+    })
+    it('Should return an object', async () => {
+      const resultExecute = [{ id: 1, name: 'Manopla do Destino' }];
+
+      Sinon.stub(connection, 'execute').resolves([resultExecute])
+
+      const result = await productModel.create('Manopla do Destino');
+
+      expect(result).to.be.an('object');
+    });
+    it('Should have an id and name keys', async () => {
+      const resultExecute = [{ id: 1, name: 'Manopla do Destino' }];
+
+      Sinon.stub(connection, 'execute').resolves([resultExecute])
+
+      const result = await productModel.create('Manopla do Destino');
+
+      expect(result).to.all.keys('id', 'name');
+    });
+  })
 })
