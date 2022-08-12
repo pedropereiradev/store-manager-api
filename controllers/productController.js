@@ -11,8 +11,6 @@ const getById = async (req, res) => {
 
   const result = await productService.getById(id);
 
-  console.log(result);
-
   if (result.error) {
     return res.status(result.error.code).json({ message: result.error.message });
   }
