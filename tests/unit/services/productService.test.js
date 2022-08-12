@@ -147,4 +147,29 @@ describe('Product Service Tests', () => {
       })
     })
   })
+
+  describe('Create a new product', () => {
+     afterEach(() => {
+      Sinon.restore();
+    })
+    it('Should return an object', async () => {
+       const resultExecute = { id: 1, name: 'Manopla do Destino' };
+
+      Sinon.stub(productModel, 'create').resolves(resultExecute)
+
+      const result = await productService.create('Manopla do Destino');
+
+      expect(result).to.be.an('object');
+    })
+
+    it('Should have id and name keys', async () => {
+       const resultExecute = { id: 1, name: 'Manopla do Destino' };
+
+      Sinon.stub(productModel, 'create').resolves(resultExecute)
+
+      const result = await productService.create('Manopla do Destino');
+
+      expect(result).to.all.keys('id', 'name');
+    })
+  })
 })
