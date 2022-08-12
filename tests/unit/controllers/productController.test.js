@@ -28,6 +28,7 @@ describe('Product Controller Tests', () => {
       });
     })
   });
+  
   describe('Get products by id', () => {
     afterEach(() => {
       Sinon.restore();
@@ -78,4 +79,28 @@ describe('Product Controller Tests', () => {
       })
     })
   });
+
+  describe('Create a new product', () => {
+    it('Should return an object and status code 201', async () => {
+      const request = {};
+      const response = {};
+
+      response.status = Sinon.stub().returns(response);
+      response.json = Sinon.stub().returns();
+
+      request.body = 'Manopla do Destino';
+
+      const resultExecute = {
+        id: 1,
+        name: 'Manopla do Destino'
+      };
+
+      Sinon.stub(productService, 'create').resolves(resultExecute);
+
+      await productController.create(request, response);
+
+      expect(response.status.calledWith(201)).to.be.equal(true);
+      expect(response.json.calledWith({id: 1, name: 'Manopla do Destino'})).to.be.equal(true);
+    })
+  })
 })
