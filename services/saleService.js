@@ -13,8 +13,6 @@ const validateProductId = async (sales) => {
 const create = async (sales) => {
   const isProductIdValid = await validateProductId(sales);
 
-  console.log({ isProductIdValid });
-
   if (!isProductIdValid) {
     return { error: { code: 404, message: 'Product not found' } };
   }
