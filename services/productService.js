@@ -22,8 +22,6 @@ const getById = async (id) => {
 const create = async (name) => productModel.create(name);
 
 const update = async ({ name, id }) => {
-  console.log({ name });
-  console.log({ id });
   const isValidId = await validateProductUpdate(id);
 
   if (!isValidId) {
