@@ -69,7 +69,7 @@ describe('Sale Controller Tests', () => {
       await saleController.create(request, response);
 
       expect(response.status.calledWith(404)).to.be.equal(true);
-      expect(response.json.calledWith(resultErrorExecute)).to.be.equal(true);
+      expect(response.json.calledWith({message: 'Product not found'})).to.be.equal(true);
     });
   });
 });
