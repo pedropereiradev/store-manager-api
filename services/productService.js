@@ -38,9 +38,27 @@ const update = async ({ name, id }) => {
   return result;
 };
 
+const destroy = async (id) => {
+  const isValidId = await validateProductUpdate(id);
+
+  if (!isValidId) {
+    return {
+      error: {
+        code: 404,
+        message: 'Product not found',
+      },
+    };
+  }
+
+  await productModel.destroy(id);
+
+  return {};
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   update,
+  destroy,
 };
