@@ -6,6 +6,18 @@ const create = async () => {
   return { id: result.insertId };
 };
 
+const destroy = async (id) => {
+  await connection.execute(
+    `DELETE FROM
+      StoreManager.sales
+    WHERE
+      id = ?;
+    `,
+    [id],
+  );
+};
+
 module.exports = {
   create,
+  destroy,
 };
