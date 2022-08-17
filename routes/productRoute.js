@@ -7,6 +7,8 @@ const productRoute = express.Router();
 
 productRoute.get('/', productController.getAll);
 
+productRoute.get('/search', productController.getByName);
+
 productRoute.get('/:id', productController.getById);
 
 productRoute.post('/', productValidation.validateName, productController.create);
