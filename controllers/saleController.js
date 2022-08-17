@@ -42,9 +42,23 @@ const destroy = async (req, res) => {
   return res.status(204).end();
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const sales = req.body;
+
+  const result = await saleService.update({ id, sales });
+
+  if (result.error) {
+    return res.status(result.error.code).json({ message: (await result).error.message });
+  }
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   destroy,
+  update,
 };
