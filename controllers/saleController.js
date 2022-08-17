@@ -30,8 +30,21 @@ const getById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const destroy = async (req, res) => {
+  const { id } = req.params;
+
+  const result = await saleService.destroy(id);
+
+  if (result.error) {
+    return res.status(result.error.code).json({ message: result.error.message });
+  }
+
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  destroy,
 };
