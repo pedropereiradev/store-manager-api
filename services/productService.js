@@ -55,9 +55,20 @@ const destroy = async (id) => {
   return {};
 };
 
+const getByName = async (name) => {
+  if (!name) {
+    return productModel.getAll();
+  }
+
+  const result = await productModel.getByName(name);
+
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
+  getByName,
   create,
   update,
   destroy,
