@@ -10,6 +10,8 @@ const validateProductId = async (sales) => {
   return result;
 };
 
+const validateSaleId = async (id) => saleProductModel.getById(id);
+
 const create = async (sales) => {
   const isProductIdValid = await validateProductId(sales);
 
@@ -45,8 +47,26 @@ const getById = async (id) => {
   return result;
 };
 
+const destroy = async (id) => {
+  const isSaleIdValid = await validateSaleId(id);
+
+  if (!isSaleIdValid.length) {
+    return {
+      error: {
+        code: 404,
+        message: 'Sale not found',
+      },
+    };
+  }
+
+  await saleModel.destroy(id);
+
+  return {};
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  destroy,
 };
