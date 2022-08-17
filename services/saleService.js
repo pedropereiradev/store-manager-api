@@ -64,9 +64,31 @@ const destroy = async (id) => {
   return {};
 };
 
+const update = async ({ id, sales }) => {
+  const isSaleIdValid = await validateSaleId(id);
+  const isProductIdValid = await validateProductId(sales);
+
+  if (!isProductIdValid) {
+    return { error: { code: 404, message: 'Product not found' } };
+  }
+
+  if (!isSaleIdValid.length) {
+    return { error: { code: 404, message: 'Sale not found' } };
+  }
+
+  const result = await Promise.all(sales.map((sale) => saleProductModel.update({
+    saleId: id,
+    productId: sale.productId,
+    quantity: sale.quantity,
+  }))).then(() => ({ saleId: id, itemsUpdated: sales }));
+
+  return result;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   destroy,
+  update,
 };
